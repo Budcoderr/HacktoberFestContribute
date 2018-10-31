@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int info;
+    struct node*link;
+}*start=NULL;
+
+void main()
+{
+    int choice=1;
+    do
+    {
+        create();
+        printf("\nDo you wish to continue: If yes, press 1\n Else press 0\n");
+        printf("Choice: ");
+        scanf("%d",&choice);
+    }
+    while(choice==1);
+        display();
+        max();
+        min();
+}
+
+create()
+{
+    struct node *temp, *ptr;
+    temp=(struct node *)malloc(sizeof(struct node));
+    printf("\nEnter info: ");
+    scanf("%d",&temp->info);
+    temp->link=NULL;
+    if(start==NULL)
+        start=temp;
+    else
+    {
+        ptr=start;
+        while(ptr->link!=NULL)
+            ptr=ptr->link;
+
+        ptr->link=temp;
+    }
+}
+
+display()
+{
+    struct node *ptr;
+    if(start==NULL)
+        printf("List is empty");
+
+    else
+    { ptr=start;
+    printf("The linked list is: ");
+    while(ptr!=NULL)
+    {
+        printf("%d\t",ptr->info);
+        ptr=ptr->link;
+    }
+    }
+}
+max()
+    {
+        struct node *temp, *ptr,*head;
+        int max,count=1,pos;
+
+        if(start==NULL)
+        printf("List is empty");
+
+        else
+        {
+        ptr=start;
+        max=ptr->info;
+
+        while(ptr!=NULL)
+        {
+            if(max>ptr->info || max==ptr->info)
+            {ptr=ptr->link;
+                count++;}
+
+            else
+            {max=ptr->info;
+            pos=count;}
+        }
+
+        printf("\n\nMaximum element is :- %d",max);
+        printf("\nThe position of the maximum element is:- %d",pos);
+    }
+    }
+
+    min()
+    {
+        struct node *temp, *ptr,*head;
+        int min,count=1,pos;
+
+        if(start==NULL)
+        printf("List is empty");
+
+        else
+        {
+        ptr=start;
+        min=ptr->info;
+
+        while(ptr!=NULL)
+        {
+            if(min<ptr->info || min==ptr->info)
+            {ptr=ptr->link;
+                count++;}
+
+            else
+            {min=ptr->info;
+            pos=count;}
+        }
+
+        printf("\n\nMinimum element is :- %d",min);
+        printf("\nThe position of the maximum element is:- %d",pos);
+    }
+    }
