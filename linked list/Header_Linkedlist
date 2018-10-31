@@ -1,0 +1,118 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int info;
+    struct node*link;
+}*start;
+
+void main()
+{
+    int choice=1,n,p,pos;
+    start=(struct node *)malloc(sizeof(struct node));
+    start->link=NULL;
+    printf("Enter value: ");
+    scanf("%d",&start->info);
+
+    do
+    {
+        create();
+        printf("\nDo you wish to continue: If yes, press 1\n Else press 0\n");
+        printf("Choice: ");
+        scanf("%d",&choice);
+    }
+    while(choice==1);
+        display();
+
+    printf("\n\nDo you want to insert information: If yes, press 1\n Else press 0\n");
+    printf("Choice: ");
+    scanf("%d",&n);
+
+    if(n==1)
+        insertion();
+    else
+        printf("Invalid Pass");
+
+        display();
+    }
+
+create()
+{
+    struct node *temp, *ptr;
+    temp=(struct node *)malloc(sizeof(struct node));
+    printf("\nEnter info: ");
+    scanf("%d",&temp->info);
+    temp->link=NULL;
+    if(start->link==NULL)
+        start->link=temp;
+    else
+    {
+        ptr=start->link;
+        while(ptr->link!=NULL)
+            ptr=ptr->link;
+
+        ptr->link=temp;
+    }
+}
+
+display()
+{
+    struct node *ptr;
+    if(start->link==NULL)
+        printf("%d",start->info);
+
+    else
+    { ptr=start;
+    printf("\n\nThe linked list is: ");
+    while(ptr!=NULL)
+    {
+        printf("%d\t",ptr->info);
+        ptr=ptr->link;
+    }
+    }
+}
+
+
+insertion()
+{
+    struct node *temp,*ptr;
+    int count=1,pos;
+
+    temp=(struct node *)malloc(sizeof(struct node));
+    printf("\nEnter info: ");
+    scanf("%d",&temp->info);
+    temp->link=NULL;
+
+    printf("\nEnter the position: ");
+        scanf("%d",&pos);
+
+    if(start->link==NULL  ||
+         pos==1)
+    {
+        temp->link=start->link;
+        start->link=temp;
+    }
+
+   // else if(start->link==NULL  &&  pos==1)
+       // start->link=temp;
+
+    else
+    {
+        ptr=start->link;
+
+        while(ptr->link!=NULL  &&  count<pos-1)
+        {
+            ptr=ptr->link;
+            count++;
+
+            if(count==pos-1)
+            {
+                temp->link=ptr->link;
+                ptr->link=temp;
+            }
+            else
+                printf("Invalid Pass");
+        }
+    }
+}
+
