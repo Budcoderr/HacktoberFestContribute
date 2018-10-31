@@ -1,0 +1,175 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+struct node1
+{
+    int info;
+    struct node1 *link;
+}*start1=NULL;
+
+struct node2
+{
+    int info;
+    struct node2 *link;
+}*start2=NULL;
+
+
+
+void main()
+{
+
+        create1();
+        display1();
+
+        create2();
+        display2();
+
+        merge_sort();
+        display1();
+}
+
+create1()
+    {
+        struct node1 *temp,*ptr;
+        int i,n;
+
+        printf("Enter the number of nodes:");
+        scanf("%d",&n);
+
+        for(i=1;i<=n;i++)
+        {
+            temp=(struct node1 *)malloc(sizeof(struct node1));
+            temp->link=NULL;
+            printf("\nEnter info: ");
+            scanf("%d",&temp->info);
+
+            if(start1==NULL)
+            {
+                start1=temp;
+            }
+            else
+            {
+                ptr=start1;
+                while(ptr->link!=NULL)
+                    ptr=ptr->link;
+
+                ptr->link=temp;
+            }
+        }
+    }
+
+    create2()
+    {
+        struct node2 *temp,*ptr;
+        int i,n;
+
+        printf("Enter the number of nodes:");
+        scanf("%d",&n);
+
+        for(i=1;i<=n;i++)
+        {
+            temp=(struct node2 *)malloc(sizeof(struct node2));
+            temp->link=NULL;
+            printf("\nEnter info: ");
+            scanf("%d",&temp->info);
+
+            if(start2==NULL)
+            {
+                start2=temp;
+            }
+            else
+            {
+                ptr=start2;
+                while(ptr->link!=NULL)
+                    ptr=ptr->link;
+
+                ptr->link=temp;
+            }
+        }
+    }
+
+display1()
+{
+    struct node1 *ptr1;
+    if(start1==NULL)
+        printf("List is empty");
+
+    else
+    { ptr1=start1;
+    printf("\n\nThe linked list is: ");
+    while(ptr1!=NULL)
+    {
+        printf("%d\t",ptr1->info);
+        ptr1=ptr1->link;
+    }
+    }
+}
+
+display2()
+{
+    struct node2 *ptr2;
+    if(start2==NULL)
+        printf("List is empty");
+
+    else
+    { ptr2=start2;
+    printf("\n\nThe linked list is: ");
+    while(ptr2!=NULL)
+    {
+        printf("%d\t",ptr2->info);
+        ptr2=ptr2->link;
+    }
+    }
+}
+
+merge_sort()
+{
+    struct node1 *ptr1,*pre,*temp;
+    struct node2 *ptr2;
+    ptr2=start2;
+    while(ptr2!=NULL)
+    {ptr1=start1;
+        pre=ptr1;
+
+        while(ptr1!=NULL)
+        {
+            if(ptr1==start1 && ptr2->info<=ptr1->info)
+            { temp=(struct node1 *)malloc(sizeof(struct node1));
+            temp->link=NULL;
+            temp->info=ptr2->info;
+                temp->link=ptr1;
+                start1=temp;
+                ptr1=temp;;
+                pre=ptr1;
+                ptr1=ptr1->link;
+            }
+            else if(ptr1!=start1 && ptr2->info<=ptr1->info)
+            { temp=(struct node1 *)malloc(sizeof(struct node1));
+            temp->link=NULL;
+            temp->info=ptr2->info;
+                temp->link=ptr1;
+                pre->link=temp;
+                ptr1=temp;;
+                pre=ptr1;
+                ptr1=ptr1->link;
+            }
+            else if(ptr1->link==NULL && ptr2->info>ptr1->info)
+            {temp=(struct node1 *)malloc(sizeof(struct node1));
+            temp->link=NULL;
+            temp->info=ptr2->info;
+                ptr1->link=temp;;
+                ptr1=temp;;
+                pre=ptr1;
+                ptr1=ptr1->link;
+            }
+            else if(ptr2->info>ptr1->info)
+            {
+               pre=ptr1;
+                ptr1=ptr1->link;
+            }
+
+        }
+        ptr2=ptr2->link;
+    }
+
+}
